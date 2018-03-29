@@ -4,7 +4,7 @@ ui <- fluidPage(
   #titlePanel("Generalizable Pest and Pathogen Model")
   tabsetPanel(id = "tabsPanel",
               tabPanel(title = "Plot", 
-                       plotOutput("plotData", height = "600px"),
+                       plotOutput("bigsur", height = "100%"),
                        selectInput(inputId = "plotDataSelect", label = "Select data to display", choices = names(dataForPlot)[2:(length(names(dataForPlot))-1)])
                        # absolutePanel(id = "controls", class = "panel panel-default", fixed = TRUE,
                        #               draggable = TRUE, top = 60, left = "auto", right = 20, bottom = "auto",
