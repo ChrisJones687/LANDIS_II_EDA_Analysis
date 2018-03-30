@@ -4,7 +4,7 @@ BioComp <<- BioComp
 ui <- fluidPage(
   #titlePanel("Generalizable Pest and Pathogen Model")
   tabsetPanel(id = "tabsPanel",
-              tabPanel(title = "Plot", plotOutput("bigsur", height = "100%", width = "100%")
+              tabPanel(title = "Plot", plotOutput("bigsur", height = "auto")
                        # selectInput(inputId = "plotDataSelect", label = "Select data to display", choices = names(dataForPlot)[2:(length(names(dataForPlot))-1)])
                        # absolutePanel(id = "controls", class = "panel panel-default", fixed = TRUE,
                        #               draggable = TRUE, top = 60, left = "auto", right = 20, bottom = "auto",
@@ -18,7 +18,7 @@ ui <- fluidPage(
 
 
 
-server <- function(input, output) {
+server <- function(input, output, session) {
   output$bigsur <- renderPlot({
     # data <- data.frame(Year = dataForPlot$Year, Variable = dataForPlot[[input$plotDataSelect]], Host = dataForPlot$Host)
     # if (input$plotDataSelect == "Area"){
@@ -46,8 +46,11 @@ server <- function(input, output) {
     theme(axis.text=element_text(size=10),axis.title=element_text(size=16,vjust=0.35),legend.text=element_text(size=12),plot.title=element_text(size=22))+
     scale_x_continuous(name="Date", breaks=seq(1990,2090,20))+
     scale_y_continuous(name=expression("Bay to Tanoak Ratio"))+
-    geom_ribbon(data = BioComp, aes(ymin=minB2T, ymax=maxB2T, fill = factor(Model), colour = NA), alpha=0.3)
-  })
+    geom_ribbon(data = BioComp, aes(ymin=minB2T, ymax=maxB2T, fill = factor(Model), colour = NA), alpha=0.3)},
+    height = function() {
+      session$clientData$output_bigsur_width
+    })
+  
 
 }
 
