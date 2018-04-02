@@ -3,7 +3,8 @@
 dirs = list.dirs("G://FinalModelRunsFixed", full.names = TRUE)
 files = list.files(path= dirs, pattern="spp-biomass-log.csv", full.names = TRUE)
 dlist <-lapply(files, read.csv)
-
+files <- files[2]
+library(data.table)
 edaMean <- as.data.frame(rbindlist(dlist)[,lapply(.SD,mean), list(Time, Ecoregion)])
 
 bios = edaMean
@@ -87,3 +88,4 @@ plot2 = plot2 + scale_y_continuous(name=expression("Bay to Tanoak Ratio"))+guide
 # plot2 = plot2 +geom_ribbon(data = biosed, aes(ymin=minB2T2, ymax=maxB2T2, fill = factor(Model), colour = NA), alpha=0.3)+annotate("segment", x=-Inf, xend=Inf, y=-Inf, yend=-Inf)+annotate("segment", x=-Inf, xend=-Inf, y=-Inf, yend=Inf)
 
 plot2
+
