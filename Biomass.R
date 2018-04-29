@@ -1,10 +1,14 @@
 ## Read in directories and files from those directories that are needed for analysis
 # Read in from EDA only models
+library(data.table)
+library(vegan)
+
 dirs = list.dirs("G://FinalModelRunsFixed", full.names = TRUE)
 files = list.files(path= dirs, pattern="spp-biomass-log.csv", full.names = TRUE)
+files <- files[4]
 dlist <-lapply(files, read.csv)
-files <- files[2]
-library(data.table)
+
+
 edaMean <- as.data.frame(rbindlist(dlist)[,lapply(.SD,mean), list(Time, Ecoregion)])
 
 bios = edaMean
